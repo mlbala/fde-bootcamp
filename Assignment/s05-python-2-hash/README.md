@@ -15,6 +15,17 @@ Build a complete understanding of how hashing works: what a hash function is, ho
 6. **Explore it in a notebook** (to be created in this folder) to demo each step with examples.
 
 ## How to run
+Open the notebook in VS Code or Jupyter:
+
+```bash
+jupyter notebook Assignment/s05-python-2-hash/understanding_hash.ipynb
+```
+
+Run the tests:
+
+```bash
+pytest Assignment/s05-python-2-hash
+```
 
 ## Learnings
 
