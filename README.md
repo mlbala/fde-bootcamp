@@ -212,3 +212,22 @@ deactivate
 Original code in this repository is licensed under the [MIT License](LICENSE).
 
 Third-party code and materials retain their respective licenses. Course materials are included only where redistribution is permitted.
+
+## Setup
+
+Activate the shared environment with `fdevenv`, then copy the example environment file:
+
+```bash
+fdevenv
+cp .env.example .env
+```
+
+Add your credentials to `.env`; never commit that file.
+
+## Layout
+
+- `Assignment/` holds course assignments.
+- `modules/` contains the 14 numbered course modules, each with source code, notebooks, tests, and a module README.
+- `projects/` contains the OmniGuard and AuditMesh capstone projects, each with documentation, source code, tests, and a project README.
+- `shared/` contains reusable utilities in `shared/utils/`.
+- `notes/` is for course notes and revision material.

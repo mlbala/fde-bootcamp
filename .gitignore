@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# FDE bootcamp local files
+.env.*
+!.env.example
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+data/raw/

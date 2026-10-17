@@ -1,0 +1,7 @@
+python-dotenv
+pydantic
+fastapi
+uvicorn[standard]
+pytest
+jupyter
+ipykernel
