@@ -1,0 +1,15 @@
+# PRIORITY - 1
+# Exception handling
+# OS library (os,path.join, os.getcwd, os.listdir, relative path vs full path)
+# File Handling (Pracise file handling with exception handling)
+# OOPs (Class, Object, constructor, methods, attributes, self)
+
+# PRIORITY - 2
+# Comprehension [list, dict]
+# Useful built-in ( any(), all(), map(), filter(), enumerate(), zip(), sorted() ) 
+# lambda
+
+-----------------------------------------------------
+
+introduce --> behind the scene
+--> function --> return -> how to use
