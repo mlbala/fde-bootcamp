@@ -1,24 +1,79 @@
-# Session 05: Python 2 and Understanding Hash
+# Session 05: Python 2 (Hash, String Formatting, Control Flow)
 **Date:** 2026-10-17
 **Module:** 01 - Python & Linux Foundations
 **Status:** In progress
 
+## Class notes
+The session's class notebook is [02_collection_string_operations.ipynb](../../modules/01-python-linux/notebooks/02_collection_string_operations.ipynb). It covers sets, dictionaries, type casting, input and output, references and copying, and strings.
+
+## Today's assignments
+From [assignment.txt](assignment.txt):
+
+| # | Topic | File |
+|---|-------|------|
+| 1 | Learn or research about hash | [understanding_hash.ipynb](understanding_hash.ipynb) |
+| 1 | A hash table built from scratch, with tests | [solution.py](solution.py), [test_solution.py](test_solution.py) |
+| 2 | `str.format()` and string formatting (optional) | [string_formatting.ipynb](string_formatting.ipynb) |
+| 3 | `if`/`elif`/`else`, `for` and `while` loops, and function basics | [control_flow.ipynb](control_flow.ipynb) |
+
+Every notebook follows the same pattern: **what it is → behind the scenes → syntax → returns → how to use**, and ends with practice exercises and worked solutions. Examples that fail on purpose are wrapped in `try` / `except`, so **Run All** works from top to bottom.
+
+Class demo scripts:
+- [input_demo.py](input_demo.py): `input()` always returns a string, so convert it with `float()` before adding two numbers.
+- [print_demo.py](print_demo.py): reading one record from a nested dictionary with `.get()`.
+
 ## Problem statement
-Build a complete understanding of how hashing works: what a hash function is, how a hash table (Python `dict`/`set`) uses it to store and look up data, and why it gives fast lookups.
+1. **Hash:** understand how hashing works: what a hash function is, how a hash table (Python's `dict` and `set`) uses one to store and find data, and why that makes lookups fast.
+2. **String formatting (optional):** learn `str.format()` alongside the other ways of building strings from values.
+3. **Control flow and functions:** `if`/`elif`/`else`, `for` and `while` loops, and the basics of functions.
 
 ## Approach
-1. **What a hash is:** a function that maps any input to a fixed-size integer. The same input always gives the same output, and different inputs should rarely collide.
-2. **Python's `hash()`:** try it on ints, strings and tuples; see why strings vary between runs (hash randomization) and why mutable types such as `list` are unhashable.
-3. **How a hash table works:** hash the key, take it modulo the number of buckets to get an index, and store the value there.
-4. **Collisions:** when two keys land in the same bucket, see how they are resolved (chaining or open addressing) and how resizing keeps lookups fast.
-5. **Build a small hash table from scratch** in `solution.py` with set, get and delete, and test it with `test_solution.py`.
-6. **Explore it in a notebook** (to be created in this folder) to demo each step with examples.
+### 1. Hash ([understanding_hash.ipynb](understanding_hash.ipynb), [solution.py](solution.py))
+1. **What a hash is:** a toy hash that adds up character codes. It shows that the same input always gives the same output, and that different inputs can collide (`"cat"` and `"act"`). A second, polynomial hash fixes the anagram collisions.
+2. **Python's `hash()`:** tried on ints, floats and tuples. `1`, `1.0` and `True` share a hash, so they are one dict key. String hashes change between runs (hash randomization, shown by starting fresh Python processes).
+3. **Hashable vs unhashable:** lists, dicts and sets are unhashable because they can change. Convert to a tuple or `frozenset` to use them as keys.
+4. **How a hash table works:** `hash(key) % number_of_buckets` gives the bucket index. Built first with plain lists and two functions, `put()` and `lookup()`.
+5. **Collisions:** chaining (a list per bucket) compared with open addressing (linear probing, the idea CPython uses).
+6. **Load factor and resizing:** watching a real `dict` grow with `sys.getsizeof`.
+7. **`HashTable` in `solution.py`:** `set`, `get`, `delete`, `in`, `len`, `items`, `show` and dict-style `[]` syntax. It uses chaining and doubles its buckets when it's more than 75% full. `test_solution.py` has 19 tests, including a comparison against a real `dict` after hundreds of operations.
+8. **Why lookups are fast:** a `timeit` comparison of `in` on a list (O(n), checks every item) against a set and a dict (O(1) on average, jumps straight to the bucket).
+9. **Cryptographic hashes:** `hashlib.sha256`, the avalanche effect, file integrity checks, Git commit IDs, and salted password hashing.
+10. **Exercises:** word frequency, finding duplicates, two sum, and grouping anagrams.
+
+### 2. String formatting ([string_formatting.ipynb](string_formatting.ipynb))
+- **`str.format()` first:** positional, indexed and named placeholders, reusable templates filled from a dict with `**`, and `{0[key]}` access.
+- **The other styles:** f-strings (including the `{name=}` debug form) and old-style `%` formatting.
+- **The format spec mini-language:** precision, rounding, thousands separator, percent, binary/hex/octal, zero padding, scientific notation, alignment and fill.
+- **Dates, dynamic widths and escaping braces,** then common mistakes and when to use which style.
+- **Exercises:** a receipt, a report card, a mail merge, and a progress bar.
+
+### 3. Control flow and function basics ([control_flow.ipynb](control_flow.ipynb))
+- **`if`/`elif`/`else`:** a grading function, why order matters, a leap-year check, truthiness and the conditional expression.
+- **`for` loops** over strings, `range()`, `enumerate()` and `dict.items()`, plus the accumulator pattern (totals, maximums, new lists).
+- **`while` loops:** the Collatz sequence, taking a number apart digit by digit, and input validation.
+- **`break`, `continue` and loop-`else`:** a prime number finder and a search.
+- **Nested loops:** a multiplication table and a star pyramid.
+- **Function basics:** `def`, parameters vs arguments, `print` vs `return`, default and keyword arguments, returning several values, early `return`, functions calling functions, and local variables.
+- **Exercises:** FizzBuzz, a calculator, counting vowels, palindrome numbers, a guessing game, and a class report.
 
 ## How to run
-Open the notebook in VS Code or Jupyter:
+Open the notebooks in VS Code or Jupyter and run the cells from top to bottom:
 
 ```bash
-jupyter notebook Assignment/s05-python-2-hash/understanding_hash.ipynb
+jupyter notebook Assignment/s05-python-2-hash/
+```
+
+Run the class demos (`input_demo.py` asks for two numbers):
+
+```bash
+python Assignment/s05-python-2-hash/input_demo.py
+python Assignment/s05-python-2-hash/print_demo.py
+```
+
+Run the hash table demo:
+
+```bash
+python Assignment/s05-python-2-hash/solution.py
 ```
 
 Run the tests:
@@ -27,6 +82,18 @@ Run the tests:
 pytest Assignment/s05-python-2-hash
 ```
 
+## To do
+- [x] **Function basics** (assignment item 3): section 6 of [control_flow.ipynb](control_flow.ipynb). Section 3 of the class notebook [03_ControlFlow_scope_of_variable.ipynb](../../modules/01-python-linux/notebooks/03_ControlFlow_scope_of_variable.ipynb) goes further.
+- [x] **Hash table code:** the `HashTable` class now lives in `solution.py` (the notebook imports it), and `test_solution.py` tests `set`, `get`, `delete`, collisions and resizing.
+
 ## Learnings
+- **Hashing:** a hash function turns a key into a number. `dict` and `set` use that number to jump straight to a bucket, which is why lookups are O(1) on average instead of O(n).
+- **Keys must be hashable:** only immutable values (numbers, strings, tuples) can be dict keys or set items. If a key could change, its hash would change and the value would be lost.
+- **Collisions are normal:** two keys can share a bucket. Chaining keeps both, and resizing keeps buckets short so lookups stay fast.
+- **String hashes vary between runs** (hash randomization), so never save them or rely on them.
+- **`hash()` vs `hashlib`:** `hash()` is for fast lookups inside one program. For hashes that must be secure or stay the same everywhere (checksums, Git IDs, passwords), use `hashlib.sha256`.
+- **Formatting styles:** use f-strings by default, `str.format()` when the template is stored separately from the values, and `%` mainly in `logging`. The format spec is `{value:[fill][align][width][,][.precision][type]}`.
+- **Control flow:** Python runs only the **first** branch whose condition is true. Empty values (`0`, `""`, `[]`, `None`) are falsy. A loop's `else` runs only if the loop finished without `break`.
+- **Functions:** `return` gives a value back to the caller, while `print` only shows it (a function without `return` gives back `None`). Variables created inside a function are local to it.
 
 ## Open questions
