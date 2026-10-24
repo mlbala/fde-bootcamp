@@ -22,6 +22,19 @@ Class demo scripts:
 - [input_demo.py](input_demo.py): `input()` always returns a string, so convert it with `float()` before adding two numbers.
 - [print_demo.py](print_demo.py): reading one record from a nested dictionary with `.get()`.
 
+## Projects
+Five small programs that follow the order the topics are taught in: each project uses only the topics up to its own, plus sessions 04-05. Each folder has a `project.txt` (the brief: its level, the topics it practises and the ones it doesn't use yet, requirements, a sample run and stretch goals), the program, and its tests. Every test file also reads the program's code and fails if it uses a topic from later on.
+
+| Folder | Program | Topics used | What it practises | Tests |
+|--------|---------|-------------|-------------------|-------|
+| [project-1](project-1/) | Secure sign-up and log-in: [secure_signup.py](project-1/secure_signup.py) | 1 | Salted `hashlib.pbkdf2_hmac`, a dict as the user store, `hash()` and buckets | 5 |
+| [project-2](project-2/) | Report card: [report_card.py](project-2/report_card.py) | 1-2 | A `str.format()` template filled with `**`, alignment, `.2f`, `%`, dates; a SHA-256 verification code | 5 |
+| [project-3](project-3/) | Calculator: [calculator.py](project-3/calculator.py) | 1-3 | Functions that return `(result, error)`, `if`/`elif` checks for division by zero and overflow, `while` loops that ask again | 50 |
+| [project-4](project-4/) | Login system: [login_system.py](project-4/login_system.py) | 1-3 | Project 1 with a menu, password rules checked with a `for` loop, and account locking | 23 |
+| [project-5](project-5/) | Supermarket billing: [billing.py](project-5/billing.py) | 1-3 | A receipt with any number of lines, discount slabs with `if`/`elif`, `cart.copy()` before `cart.clear()` | 29 |
+
+Topics: **1** hash, **2** string formatting, **3** `if`/`elif`/`else`, `for`, `while` and function basics. Projects 1 and 2 come before topic 3, so they have no `if`, loops or `def`: they run from top to bottom, and a dict lookup such as `{True: "PASS", False: "FAIL"}[mark >= 40]` does the job of an `if`. None of the five uses session 06 topics (`try`/`except`, files, classes, comprehensions, `lambda`, `sorted()` and the other built-ins), so projects 3-5 check every input with `if` before using it.
+
 ## Problem statement
 1. **Hash:** understand how hashing works: what a hash function is, how a hash table (Python's `dict` and `set`) uses one to store and find data, and why that makes lookups fast.
 2. **String formatting (optional):** learn `str.format()` alongside the other ways of building strings from values.
@@ -76,7 +89,17 @@ Run the hash table demo:
 python Assignment/s05-python-2-hash/solution.py
 ```
 
-Run the tests:
+Run the projects:
+
+```bash
+python Assignment/s05-python-2-hash/project-1/secure_signup.py
+python Assignment/s05-python-2-hash/project-2/report_card.py
+python Assignment/s05-python-2-hash/project-3/calculator.py
+python Assignment/s05-python-2-hash/project-4/login_system.py
+python Assignment/s05-python-2-hash/project-5/billing.py
+```
+
+Run the tests (this includes the projects' tests):
 
 ```bash
 pytest Assignment/s05-python-2-hash
