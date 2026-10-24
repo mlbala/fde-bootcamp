@@ -36,6 +36,20 @@ Supporting files:
 - [paths_demo.py](paths_demo.py): shows that a relative path depends on where you run `python` from, not where the script is.
 - [.gitignore](.gitignore): keeps the `practice_files/` folder out of git.
 
+## Projects
+Four terminal apps, beyond the expense tracker, that follow the order the topics are taught in: each project uses only the topics up to its own, plus sessions 04-05. Each folder has a `project.txt` (the brief: its level, the topics it practises and the ones it doesn't use yet, requirements, a sample run and stretch goals), the app, and its tests. Every test file also reads the app's code and fails if it uses a topic from later on. Files the apps create go into a `practice_files/` folder inside the project folder, which the `.gitignore` above also covers.
+
+| Folder | App | Topics used | What it practises | Tests |
+|--------|-----|-------------|-------------------|-------|
+| [project-1](project-1/) | ATM machine: [atm.py](project-1/atm.py) | 1 | `try`/`except`/`else`/`finally`, `raise`, a family of custom exceptions under `ATMError`, exceptions travelling up to the menu | 28 |
+| [project-2](project-2/) | File organizer: [file_organizer.py](project-2/file_organizer.py) | 1-3 | The `os` module (`listdir`, `splitext`, `makedirs`, `rename`, relative vs absolute paths), a JSON undo log, never overwriting a file | 25 |
+| [project-3](project-3/) | Library management: [library.py](project-3/library.py) | 1-4 | OOP (`Book`, `Library`), custom exceptions under `LibraryError`, saving to JSON after every change | 27 |
+| [project-4](project-4/) | Student marks analyzer: [marks_analyzer.py](project-4/marks_analyzer.py) | 1-7 | Comprehensions, `zip`, `map`, `filter`, `enumerate`, `sorted`, `any`, `all` and `lambda`, on marks read from a CSV file | 34 |
+
+Topics: **1** exception handling, **2** `os`, **3** file handling, **4** OOP, **5** comprehensions, **6** useful built-ins, **7** `lambda`. Until topic 4, the only `class` lines are one-line custom exceptions, written the way the exceptions notebook writes them. Until topics 5-7, lists and dicts are built with plain `for` loops, so project 4 shows how much shorter comprehensions and built-ins make the same jobs.
+
+The file organizer starts on a folder of sample files in `practice_files/`, shows its plan and asks before moving anything, and can undo every move.
+
 ## Approach
 One notebook per topic, in the order of the assignment. Each one builds on the ones before it: file handling uses exceptions and `os`, the OOP examples raise exceptions, and the mini project uses everything.
 
@@ -119,7 +133,16 @@ Run the mini project:
 python Assignment/s06-python-3/solution.py
 ```
 
-Run the tests:
+Run the projects:
+
+```bash
+python Assignment/s06-python-3/project-1/atm.py
+python Assignment/s06-python-3/project-2/file_organizer.py
+python Assignment/s06-python-3/project-3/library.py
+python Assignment/s06-python-3/project-4/marks_analyzer.py
+```
+
+Run the tests (this includes the projects' tests):
 
 ```bash
 pytest Assignment/s06-python-3
