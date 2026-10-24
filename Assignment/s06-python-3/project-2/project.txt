@@ -1,0 +1,142 @@
+PROJECT 2: FILE ORGANIZER
+Session 06 - Python 3 (exceptions, os, files, OOP, comprehensions, built-ins, lambda)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 06 topics, in the order they are taught:
+   PRIORITY 1  1. exception handling              (project 1)
+               2. os library                   <- this project
+               3. file handling                <- this project
+               4. OOP                             (project 3)
+   PRIORITY 2  5. comprehensions                  (project 4)
+               6. useful built-ins                (project 4)
+               7. lambda                          (project 4)
+
+Topics you may use:   topics 1-3 (exceptions, os, file handling), plus
+                      sessions 04-05: collections, dicts, sets, string
+                      formatting, if / elif / else, for, while,
+                      functions
+Not used yet:         classes (topic 4), comprehensions, lambda, and
+                      the built-ins any(), all(), map(), filter(),
+                      enumerate(), zip(), sorted() (topics 5-7)
+
+So every function takes the folder it works on as a parameter, and
+every list and dict is built with a plain for loop. (The one class
+line is the custom LogError exception, as in project 1.)
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Everyone's Downloads folder ends up a mess. Build a tool that sorts the
+files in a folder into sub-folders by type (Images, Documents, Audio,
+Video, Archives, Code, Other), shows the plan before moving anything,
+and can undo everything it did.
+
+It starts on a practice folder full of sample files, so it is safe to
+try. Only point it at a real folder once you trust it.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+TOPIC 2: OS (the main topic)
+os.getcwd()            where relative paths start from
+os.path.abspath()      relative path -> full path
+os.path.expanduser()   "~/Downloads" -> full path
+os.path.join()         build paths that work on Windows, macOS, Linux
+os.listdir()           what's in the folder
+os.path.isfile() / isdir() / exists()
+os.path.splitext()     "photo.JPG" -> ("photo", ".JPG")
+os.path.relpath()      full path -> "Images/photo.JPG"
+os.makedirs(exist_ok=True), os.rename(), os.remove(), os.rmdir()
+
+TOPIC 3: FILE HANDLING
+- a JSON log of every move: json.dump() / json.load() with "with"
+- "x" mode to create the sample files without ever overwriting one
+
+TOPIC 1: EXCEPTION HANDLING
+- NotADirectoryError for a folder that doesn't exist
+- OSError for a file that can't be moved: report it, move the rest
+- FileNotFoundError for a missing log (normal: nothing to undo yet)
+  and for a file that was deleted before undo
+- a custom LogError for a broken log, raised BEFORE anything moves
+- finally, so the log is written even if the loop stops halfway
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Menu:
+      1. Create sample files     4. Undo
+      2. Preview                 5. Choose another folder
+      3. Organize                6. Quit
+2. Only the files directly inside the folder are organized: not
+   sub-folders, not hidden files (names starting with "."), and not
+   the tool's own log file.
+3. The category comes from the extension, ignoring case
+   ("photo.JPG" -> Images). No extension or an unknown one -> Other.
+4. Preview lists what would move where, grouped by category in the
+   order of CATEGORIES, and moves nothing.
+5. Organize shows the preview, asks "Move N files? (y/n)", then moves.
+   - A category folder is created only when it's needed.
+   - A file is NEVER overwritten: if "Images/photo.jpg" already exists,
+     the new one becomes "Images/photo (1).jpg".
+   - If one file can't be moved, report it and carry on with the rest.
+6. Every move is recorded in organizer_log.json inside the folder.
+   Undo moves every recorded file back (newest first), removes the
+   category folders it left empty, and deletes the log.
+7. A broken log (not valid JSON, or entries that point outside the
+   folder) raises LogError, and nothing is moved.
+8. "Choose another folder" accepts a full path, a relative path or a
+   path starting with ~, and always prints the full path it will use.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+Folder: .../project-2/practice_files/messy_downloads
+Choose 1-6: 1
+  Created 15 sample files in the practice folder.
+
+Choose 1-6: 3
+Images (3)
+  Screenshot 2026-10-20.PNG
+  holiday photo.jpg
+  logo.svg
+Documents (4)
+  budget.xlsx
+  marks.csv
+  notes.txt
+  resume.pdf
+...
+Other (2)
+  README
+  setup.exe
+  (Other: no extension, or one that isn't in CATEGORIES)
+Move 15 files? (y/n): y
+  Moved 15 files. Choose 4 to undo.
+
+Choose 1-6: 4
+  Moved 15 files back.
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt            this description
+file_organizer.py      the app
+test_file_organizer.py pytest tests (each one works in its own
+                       temporary folder), and a check that the app
+                       uses only topics 1-3
+practice_files/        created at run time, git-ignored
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s06-python-3/project-2/file_organizer.py
+pytest Assignment/s06-python-3/project-2
+
+-----------------------------------------------------
+STRETCH GOALS (still topics 1-3)
+-----------------------------------------------------
+- Show each category's total size with os.path.getsize().
+- Let the user add their own categories, saved in a JSON settings file.
+- Sort by date instead (one folder per month) with os.path.getmtime().
+- Look inside sub-folders too, with os.walk().
