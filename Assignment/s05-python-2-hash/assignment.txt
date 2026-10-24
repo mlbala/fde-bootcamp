@@ -1,0 +1,3 @@
+1. Learn or research about hash
+2. str.format() (string formatting)(optional)
+3. if-elif-else, for, while, function-basic ()
