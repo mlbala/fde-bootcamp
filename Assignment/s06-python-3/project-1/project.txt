@@ -1,0 +1,146 @@
+PROJECT 1: ATM MACHINE
+Session 06 - Python 3 (exceptions, os, files, OOP, comprehensions, built-ins, lambda)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 06 topics, in the order they are taught:
+   PRIORITY 1  1. exception handling           <- this project
+               2. os library                      (project 2)
+               3. file handling                   (project 2)
+               4. OOP                             (project 3)
+   PRIORITY 2  5. comprehensions                  (project 4)
+               6. useful built-ins                (project 4)
+               7. lambda                          (project 4)
+
+Topics you may use:   topic 1 (exception handling), plus sessions
+                      04-05: variables, data types, operators,
+                      collections, dicts, string formatting, if / elif
+                      / else, for, while, functions
+Not used yet:         os, files (topics 2-3), classes (topic 4),
+                      comprehensions, lambda, and the built-ins any(),
+                      all(), map(), filter(), enumerate(), zip(),
+                      sorted() (topics 5-7)
+
+The custom exceptions need one line each, like
+    class InsufficientFundsError(ATMError): ...
+That's how 01_exception_handling.ipynb defines its custom exception.
+Writing real classes, with attributes and methods, is project 3.
+There are no files yet, so the accounts are kept in a dict in memory
+and start fresh every time the program runs.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build the software of a cash machine: insert a card, enter the PIN,
+check the balance, deposit, withdraw, see a mini statement and change
+the PIN. A real ATM must never crash, whatever the customer types, so
+every rule is an exception that the menu catches and explains.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+try / except       -> float("abc") raises ValueError: catch it
+specific excepts   -> catch WrongPinError (ask again) separately from
+                      CardBlockedError (end the visit)
+except order       -> CardBlockedError BEFORE ATMError, because the
+                      first matching except wins
+turning one error  -> a KeyError from accounts[number] becomes an
+into another          AccountNotFoundError ("raise ... from None")
+raise              -> the bank's rules: not enough money, over the
+                      daily limit, not a multiple of 100, ...
+custom exceptions  -> a family tree with one base class:
+                          ATMError
+                          |-- AccountNotFoundError
+                          |-- WrongPinError
+                          |-- CardBlockedError
+                          |-- InvalidAmountError
+                          |-- InsufficientFundsError
+                          |-- DailyLimitError
+                          `-- InvalidPinError
+                      so "except ATMError" catches them all
+else               -> "Welcome!" only when check_pin() raised nothing
+finally            -> "Please take your card." however the visit ends,
+                      even with Ctrl + C
+travelling up      -> change_pin() calls check_pin(); a wrong PIN
+                      raised deep inside reaches the menu's except
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. "Insert card? (y/n)" starts a visit; "n" switches the ATM off.
+2. Two demo accounts: 1001 (Bala, PIN 1234, Rs 15,000) and
+   1002 (Kumar, PIN 4321, Rs 2,500).
+3. Unknown account number -> AccountNotFoundError, visit ends.
+4. Wrong PIN -> WrongPinError, "2 tries left", ask again. After 3
+   wrong PINs in a row the card is blocked (CardBlockedError), even
+   for the right PIN. A correct PIN resets the count.
+5. Menu: 1. Check balance  2. Deposit  3. Withdraw  4. Mini statement
+         5. Change PIN     6. Take card
+6. Amounts: "1,500" is accepted. Not a number, zero, negative, "nan",
+   "inf" or more than 2 decimal places -> InvalidAmountError.
+7. Deposit: at most Rs 50,000 at a time.
+8. Withdraw: a multiple of Rs 100, not more than the balance
+   (InsufficientFundsError), and at most Rs 20,000 a day in total
+   (DailyLimitError, which says how much is left).
+9. A failed deposit or withdrawal must not change the balance.
+10. Mini statement: the last 5 transactions and the balance.
+11. Change PIN: the current PIN, then the new 4-digit PIN twice; it
+    must be different from the old one.
+12. The program never shows a traceback: every error becomes a
+    message, and the menu carries on.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+Welcome to FDE Bank. Try account 1001 (PIN 1234) or 1002 (PIN 4321).
+
+Insert card? (y/n): y
+Account number: 1001
+PIN: 0000
+  wrong PIN, 2 tries left
+PIN: 1234
+  Welcome, Bala!
+
+Choose 1-6: 2
+Amount to deposit: abc
+  Error: 'abc' is not an amount
+
+Choose 1-6: 3
+Amount to withdraw: 50000
+  Error: your balance is only Rs 16,000.00
+
+Choose 1-6: 4
+Mini statement for Bala
+Type            Amount       Balance
+Deposit      +1,000.00     16,000.00
+Balance                    16,000.00
+
+Choose 1-6: 6
+  Please take your card.
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt          this description
+atm.py               the app
+test_atm.py          pytest tests for every rule, a whole visit to the
+                     ATM, and a check that it uses only topic 1
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s06-python-3/project-1/atm.py
+pytest Assignment/s06-python-3/project-1
+
+-----------------------------------------------------
+STRETCH GOALS (still topic 1 only)
+-----------------------------------------------------
+- Add "Transfer to another account", raising AccountNotFoundError for
+  an unknown account and refusing a transfer to the same account.
+- Add a ReceiptPrinterError that sometimes happens (every 3rd
+  withdrawal), and make sure the cash is still given out.
+- Keep a count of every error by type in a dict, and print it when
+  the ATM switches off.
+- Later (topics 2-3): save the accounts to a file so they survive a
+  restart.

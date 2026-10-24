@@ -1,0 +1,141 @@
+PROJECT 4: STUDENT MARKS ANALYZER
+Session 06 - Python 3 (exceptions, os, files, OOP, comprehensions, built-ins, lambda)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 06 topics, in the order they are taught:
+   PRIORITY 1  1. exception handling              (project 1)
+               2. os library                      (project 2)
+               3. file handling                   (project 2)
+               4. OOP                             (project 3)
+   PRIORITY 2  5. comprehensions               <- this project
+               6. useful built-ins             <- this project
+               7. lambda                       <- this project
+
+Topics you may use:   all 7, plus sessions 04-05
+
+The last project of the session, so it uses everything. Compare it
+with project 3: there, finding the failed students or the books on
+the shelf took a for loop, an if and an append. Here each of those
+is one line: a comprehension, or filter() with a lambda.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+A teacher has the class's marks in a CSV file. Build a tool that reads
+the file and answers the questions a teacher asks: who is first, what
+is the class average in each subject, who topped each subject, who
+failed and in what, who got a distinction. Then save it all as a
+report.
+
+This project is the PRIORITY 2 practice: almost every answer is one
+comprehension or one built-in with a lambda.
+
+-----------------------------------------------------
+MODULE TOPICS THIS PROJECT PRACTISES
+-----------------------------------------------------
+PRIORITY 2
+comprehensions     -> list: the failed subjects, the search results
+                      dict: subject averages, subject toppers, grade
+                            counts
+                      set:  spotting a repeated subject in the header
+built-ins          -> zip()       pair each subject with its mark
+                      map()       int() on every mark in a row
+                      enumerate() line numbers for the warnings,
+                                  rank numbers for the rank list
+                      sorted()    the rank list
+                      filter()    the students who failed
+                      any()       has the student got a distinction?
+                      all()       did the student pass every subject?
+                                  are all the marks from 0 to 100?
+                      sum() max() min() len()
+lambda             -> sort key (-total, name), the filter test, the
+                      max() key for each subject's topper
+
+PRIORITY 1
+OOP                -> a Student class: name and marks as attributes;
+                      total(), average(), passed(), has_distinction(),
+                      failed_subjects(), grade() as methods
+exception handling -> a custom MarksFileError; ValueError from int()
+                      turned into a clear message; a missing file, a
+                      folder instead of a file, a file that isn't text
+file handling      -> read the CSV line by line with "with open(...)",
+                      write the report to a text file
+os                 -> paths built from __file__ with os.path.join,
+                      os.makedirs, os.path.exists, os.path.abspath to
+                      show the full path of a relative one
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Menu:
+      1. Rank list                  5. Save the full report
+      2. Subject summary            6. Load another CSV file
+      3. Failed and distinctions    7. Quit
+      4. Find a student
+2. CSV format: the first line is "name,subject1,subject2,..." (any
+   number of subjects), then one line per student.
+3. First run: create a sample marks.csv in practice_files/.
+4. Bad lines are skipped with a warning that gives the line number:
+   wrong number of marks, a mark that isn't a whole number, a mark
+   outside 0-100, an empty name, a name that appears twice.
+   Blank lines are ignored.
+5. The file can't be used at all (show why, don't crash) when: it
+   doesn't exist, it's empty, the header doesn't start with "name",
+   there are no subjects, or a subject appears twice.
+6. Rules:
+      pass         -> at least 35 in EVERY subject
+      distinction  -> 90 or more in ANY subject
+      grade        -> from the average: A+ 90, A 80, B 70, C 60,
+                      D 50, E 35; F for anyone who failed a subject
+7. Rank list: highest total first; equal totals in name order.
+8. Subject summary: average, topper and their mark, for each subject.
+9. Find a student: case-insensitive, matches part of the name.
+10. The report (practice_files/report.txt) has all of the above, plus
+    the grade counts and the pass rate.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+Created a sample marks file: .../project-4/practice_files/marks.csv
+Loaded 10 students and 5 subjects.
+
+Choose 1-7: 1
+Rank  Name          maths  science  english   social computer  Total    Avg Grade
+   1  Harini           99       97       91       94      100    481   96.2 A+
+   2  Asha             95       88       92       79       99    453   90.6 A+
+   3  Farah            88       94       85       90       96    453   90.6 A+
+...
+  10  Karthik          28       34       40       31       45    178   35.6 F
+
+Choose 1-7: 3
+Failed (3): below 35 in any subject
+  Deepak     maths
+  Gokul      english
+  Karthik    maths, science, social
+Distinction (5): 90 or more in any subject
+  Asha, Bala, Farah, Harini, Janani
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt            this description
+marks_analyzer.py      the app
+test_marks_analyzer.py pytest tests (the file tests use a temporary
+                       folder)
+practice_files/        created at run time, git-ignored
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s06-python-3/project-4/marks_analyzer.py
+pytest Assignment/s06-python-3/project-4
+
+-----------------------------------------------------
+STRETCH GOALS (try these yourself)
+-----------------------------------------------------
+- Give students with the same total the same rank (1, 2, 2, 4).
+- Add a "most improved" view by comparing two CSV files (two exams).
+- Let the teacher change the pass mark from the menu.
+- Read the file with the csv module, so names can contain commas.

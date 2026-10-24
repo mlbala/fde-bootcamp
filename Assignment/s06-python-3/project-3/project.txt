@@ -1,0 +1,154 @@
+PROJECT 3: LIBRARY MANAGEMENT SYSTEM
+Session 06 - Python 3 (exceptions, os, files, OOP, comprehensions, built-ins, lambda)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 06 topics, in the order they are taught:
+   PRIORITY 1  1. exception handling              (project 1)
+               2. os library                      (project 2)
+               3. file handling                   (project 2)
+               4. OOP                          <- this project
+   PRIORITY 2  5. comprehensions                  (project 4)
+               6. useful built-ins                (project 4)
+               7. lambda                          (project 4)
+
+Topics you may use:   topics 1-4 (exceptions, os, file handling, OOP),
+                      plus sessions 04-05
+Not used yet:         comprehensions, lambda, and the built-ins any(),
+                      all(), map(), filter(), enumerate(), zip(),
+                      sorted() (topics 5-7)
+
+This is the first project with real classes. In project 2 every
+function had to be handed the folder it worked on. Here a Library
+object keeps its own state (its books, the file it saves to, and the
+next id), and every action is a method that uses self. Searching,
+filtering and counting are still plain for loops: project 4 shows how
+comprehensions and built-ins shorten them.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build the system a small library uses at its front desk: add books,
+search them, lend them to members, take them back, and see what is out.
+The library is saved to a JSON file after every change, so nothing is
+lost when the program stops.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+TOPIC 4: OOP (the main topic)
+class Book         -> attributes: id, title, author, year, borrower
+                      a constructor (__init__) that validates and
+                      cleans every value before storing it on self
+                      methods: is_available(), is_same_book(),
+                      to_dict(), and __str__ so print(book) looks neat
+class Library      -> attributes: books (a dict: id -> Book), path,
+                      next_id
+                      methods: add_book(), get(), borrow(),
+                      return_book(), remove_book(), search(),
+                      available(), borrowed_by(), stats(), save(),
+                      load()
+self               -> library.borrow(5, "Bala") runs borrow() with
+                      self = library
+
+TOPIC 1: EXCEPTION HANDLING
+a family of custom exceptions:
+        LibraryError
+        |-- InvalidBookError
+        |-- BookNotFoundError
+        `-- BookUnavailableError
+so the menu catches all of them with ONE except. raise for bad input,
+try / except / else, turning a KeyError into a clearer
+BookNotFoundError, and a FileNotFoundError that travels up to main().
+
+TOPICS 2-3: OS AND FILE HANDLING
+- json.dump() / json.load() with "with open(...)"
+- the data file path built from __file__ with os.path.join
+- os.makedirs for the folder, os.replace to move a broken file aside
+- a missing file on the first run, a broken file, bad records skipped
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Menu:
+      1. List books           5. Return a book
+      2. Search               6. Remove a book
+      3. Add a book           7. Statistics
+      4. Borrow a book        8. Quit
+2. A book has an id (given automatically, counting up and never
+   reused), title, author, year and a borrower (empty when the book is
+   on the shelf).
+3. Validation (raise InvalidBookError):
+      - title and author can't be empty
+      - year must be a whole number from 1450 to this year
+      - the same title by the same author can't be added twice
+4. Borrowing (raise the right exception):
+      - unknown id                    -> BookNotFoundError
+      - book already borrowed         -> BookUnavailableError
+      - member already has 3 books    -> LibraryError
+5. Returning a book that isn't borrowed, or removing a book that is,
+   raises BookUnavailableError.
+6. Search is case-insensitive and matches the title or the author.
+7. List books shows every book, or only the ones on the shelf.
+8. Statistics: how many books, on the shelf and borrowed, the oldest
+   book, and which member has which books.
+9. Saving and loading:
+      - save to practice_files/library.json after every change
+      - first run (no file yet): start with 6 sample books
+      - file is not valid JSON: rename it to library.json.broken,
+        warn the user and start with an empty library
+      - a bad record inside the file: skip it with a warning, keep the rest
+      - if saving fails (OSError), say so, and keep running
+10. Ctrl + C or Ctrl + D quits cleanly (everything is already saved).
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+  First run: starting with 6 sample books. Saved.
+
+Choose 1-8: 4
+Book id: 5
+Member name: Bala
+  'Fluent Python' borrowed by Bala. Saved.
+
+Choose 1-8: 4
+Book id: 5
+Member name: Kumar
+  Error: 'Fluent Python' is already borrowed by Bala
+
+Choose 1-8: 4
+Book id: 42
+Member name: Kumar
+  Error: no book with id 42
+
+Choose 1-8: 7
+  Books: 6   on the shelf: 5   borrowed: 1
+  Oldest: Clean Code (2008)
+  Bala           Fluent Python
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt          this description
+library.py           the app
+test_library.py      pytest tests (they use a temporary folder, so they
+                     never touch the real library.json), and a check
+                     that the app uses only topics 1-4
+practice_files/      created at run time, git-ignored
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s06-python-3/project-3/library.py
+pytest Assignment/s06-python-3/project-3
+
+-----------------------------------------------------
+STRETCH GOALS (still topics 1-4)
+-----------------------------------------------------
+- Add a Member class with a name, a member id and a borrowing limit.
+- Add a due date (14 days after borrowing) and list overdue books.
+- Charge a late fee of Rs 5 a day when an overdue book is returned.
+- Later (topics 5-7): rewrite search(), available() and stats() with
+  comprehensions, and add "sort by title, author or year" with
+  sorted(key=lambda ...).

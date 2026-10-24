@@ -1,0 +1,119 @@
+PROJECT 3: CALCULATOR APP
+Session 05 - Python 2 (hash, string formatting, control flow, function basics)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 05 topics, in the order they are taught:
+   1. hash                                         (project 1)
+   2. string formatting                            (project 2)
+   3. if-elif-else, for, while, function basics <- this project
+                                                   (and projects 4-5)
+
+Topics you may use:   topics 1-3, plus the basics from sessions 04-05
+Not used yet:         try / except, files, classes, comprehensions,
+                      lambda, and the built-ins any(), all(), map(),
+                      filter(), enumerate(), zip(), sorted()
+                      (all session 06)
+
+This is the first project with if, loops and def, so for the first
+time the program can make decisions, repeat itself, and check what
+the user types before using it.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build a menu-driven calculator that runs in the terminal. The user picks
+two numbers and an operator, sees the answer, and can look back at every
+calculation they did.
+
+-----------------------------------------------------
+MODULE TOPICS THIS PROJECT PRACTISES
+-----------------------------------------------------
+if / elif / else   -> picking the operation, and catching bad input
+                      (dividing by zero, a negative number to a
+                      fractional power, results that are too large)
+while loop         -> the main menu, and asking again until the input
+                      is valid
+for loop           -> checking a number character by character,
+                      printing the numbered history with a counter
+functions          -> one job per function, parameters, default values,
+                      return, returning two values: (result, error)
+string formatting  -> str.format(), centring a title with {:=^32},
+                      thousands separators and significant digits
+                      with {:,.10g}, right-aligned numbering with {:>3}
+dict               -> the table of supported operators
+type casting       -> turning the text from input() into a float
+
+Rule: there is no try / except yet (that's session 06), so every
+input is checked with if BEFORE it is converted or used. The program
+must never crash on bad input.
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. A menu that repeats until the user quits:
+      1. New calculation
+      2. Show history
+      3. Clear history
+      4. Quit
+2. Operators: + - * / // % **
+3. Typing "ans" instead of a number uses the previous result.
+4. Ask again (do not crash) when the user types:
+      - something that is not a number ("abc", "1.2.3", "", "+")
+      - an operator that is not in the list
+5. Show an error message, and do not add to the history, for:
+      - dividing by zero with /, // or %
+      - 0 to a negative power
+      - a negative number to a fractional power (e.g. -8 ** 0.5)
+      - a result larger than 1e308 (the limit of a float)
+6. Show numbers neatly: 2 not 2.0, 1,234,567 not 1234567, and at most
+   10 significant digits (so 0.1 + 0.2 shows 0.3).
+7. History shows every calculation, numbered from 1.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+=========== CALCULATOR ===========
+
+1. New calculation
+2. Show history
+3. Clear history
+4. Quit
+Choose 1-4: 1
+First number (or ans): 1250
+Operator (+ - * / // % **): *
+Second number (or ans): 3
+  1,250 * 3 = 3,750
+
+Choose 1-4: 1
+First number (or ans): ans
+Operator (+ - * / // % **): /
+Second number (or ans): 0
+  Error: cannot divide by zero
+
+Choose 1-4: 2
+  1. 1,250 * 3 = 3,750
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt          this description
+calculator.py        the app
+test_calculator.py   pytest tests for the functions in calculator.py, and
+                     a check that it uses only session 05 topics
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s05-python-2-hash/project-3/calculator.py
+pytest Assignment/s05-python-2-hash/project-3
+
+-----------------------------------------------------
+STRETCH GOALS (try these yourself)
+-----------------------------------------------------
+- Add square root and percentage operators.
+- Let the user type a whole expression on one line, like "12 * 4".
+- Show the history in a table: first number, operator, second number,
+  result, each in its own aligned column.
+- Count how many times each operator was used, using a dict.

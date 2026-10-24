@@ -1,0 +1,120 @@
+PROJECT 4: USER LOGIN SYSTEM WITH HASHED PASSWORDS
+Session 05 - Python 2 (hash, string formatting, control flow, function basics)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 05 topics, in the order they are taught:
+   1. hash                                         (project 1)
+   2. string formatting                            (project 2)
+   3. if-elif-else, for, while, function basics    (project 3)
+   all three together                           <- this project
+                                                   (and project 5)
+
+Topics you may use:   topics 1-3, plus the basics from sessions 04-05
+Not used yet:         try / except, files, classes, comprehensions,
+                      lambda, and the built-ins any(), all(), map(),
+                      filter(), enumerate(), zip(), sorted()
+                      (all session 06)
+
+This is project 1 grown up. Project 1 could only sign up one user and
+try one log-in, from top to bottom. With topic 3 it gets a menu,
+password rules, several tries and account locking.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build the sign-up and log-in part of a website, in the terminal. Users
+can register, log in, change their password and see the list of
+accounts. The program never stores a password: it stores a salted hash
+of it, which is how real websites do it.
+
+-----------------------------------------------------
+MODULE TOPICS THIS PROJECT PRACTISES
+-----------------------------------------------------
+hashing            -> hashlib.pbkdf2_hmac("sha256", ...) with a random
+                      salt from os.urandom(), so two users with the
+                      same password get different hashes
+                      (understanding_hash.ipynb, section on hashlib)
+hash table (dict)  -> the user store: username -> record, so finding a
+                      user is one O(1) lookup instead of a loop
+nested dicts       -> each record is a dict: salt, hash, failed logins
+                      (like print_demo.py)
+if / elif / else   -> unknown user, locked account, wrong password,
+                      success
+while loop         -> the menu, and up to 3 password attempts
+for loop           -> checking a password character by character for
+                      upper case, lower case, digits and symbols
+functions          -> small functions that return a value (or an
+                      error message) instead of printing
+string formatting  -> the user table, with aligned columns and the
+                      first characters of each hash
+
+There are no files yet (session 06), so everything is kept in memory
+and the accounts are gone when the program stops.
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Menu: 1. Register  2. Log in  3. Change password  4. List users  5. Quit
+2. Username rules: 3 to 15 characters, only letters, digits and _,
+   not already taken. Usernames are case-insensitive ("Bala" = "bala").
+3. Password rules: at least 8 characters, with at least one upper case
+   letter, one lower case letter, one digit and one symbol. Show EVERY
+   rule the password breaks, not just the first.
+4. Store only a salt and a hash for each user, never the password.
+5. Log in gives up to 3 tries. A wrong username and a wrong password
+   show the SAME message ("invalid username or password"), so an
+   attacker can't find out which usernames exist.
+6. After 3 wrong passwords in a row the account is locked. A correct
+   password resets the count.
+7. Changing a password needs the old password, and the new one must
+   pass the password rules and be different from the old one.
+8. "List users" shows each username (in the order they signed up),
+   the start of its salt and hash, failed logins and whether it is
+   locked.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+1. Register
+2. Log in
+3. Change password
+4. List users
+5. Quit
+Choose 1-5: 1
+Username: bala
+Password (typing is hidden):
+  Password is too weak:
+  - needs an upper case letter
+  - needs a symbol
+Password (typing is hidden):
+  Account 'bala' created.
+
+Choose 1-5: 4
+Username         Salt           Hash           Failed  Status
+bala             9f2c41e07a1b   5d04be3f9e21        0  active
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt          this description
+login_system.py      the app
+test_login_system.py pytest tests for the functions in login_system.py,
+                     and a check that it uses only session 05 topics
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s05-python-2-hash/project-4/login_system.py
+pytest Assignment/s05-python-2-hash/project-4
+
+-----------------------------------------------------
+STRETCH GOALS (try these yourself)
+-----------------------------------------------------
+- Add an admin user who can unlock a locked account.
+- Reject the 10 most common passwords (keep them in a set: why a set?).
+- Register two users with the same password and compare their hashes
+  in "List users". Then remove the salt and compare again.
+- After session 06: save the users to a JSON file so they survive a
+  restart.

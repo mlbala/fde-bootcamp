@@ -1,0 +1,123 @@
+PROJECT 2: REPORT CARD GENERATOR
+Session 05 - Python 2 (hash, string formatting, control flow, function basics)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 05 topics, in the order they are taught:
+   1. hash                                         (project 1)
+   2. string formatting                         <- this project
+   3. if-elif-else, for, while, function basics    (projects 3-5)
+
+Topics you may use:   topics 1-2 (hash, string formatting), plus the
+                      basics from sessions 04-05: variables, data types,
+                      operators, strings, lists, sets, dicts, type
+                      casting, input(), print()
+Not used yet:         if / else, loops and def (topic 3),
+                      try / except, classes, comprehensions (session 06)
+
+So the program still runs straight from top to bottom, and the five
+subjects are written out one by one. Notice how repetitive that is:
+it's the problem loops and functions solve in project 3.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Type in a student's name, roll number and marks in five subjects, and
+print a neat report card with the total, average, percentage, grade,
+result, and a verification code that proves the card wasn't edited.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+TOPIC 2: STRING FORMATTING (the main topic)
+str.format() template -> a multi-line template with NAMED fields,
+                         filled from a dict with **:  HEADER.format(**card)
+alignment and width   -> {:<20} left, {:>10} right, {:^52} centre
+width from a variable -> {school:^{width}}
+fill characters       -> "=" * WIDTH lines
+precision             -> {average:>10.2f}  ->  90.60
+percentages           -> {:.1%}  ->  0.906 becomes 90.6%
+dates                 -> {date:%d %B %Y}  ->  24 October 2026
+f-strings             -> the summary lines at the bottom
+
+TOPIC 1: HASH
+dict as a lookup table -> GRADES[8] gives "A": the grade from the
+                          "tens" of the average, instead of if / elif
+dict instead of if     -> RESULT[mark >= 40] gives "PASS" or "FAIL"
+SHA-256 checksum       -> every detail is hashed into a verification
+                          code; change one mark and the code changes
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Ask for: name, roll number, and marks (0-100) in Maths, Science,
+   English, Social and Computer.
+2. Clean the text: " asha " -> "Asha", "s05-017" -> "S05-017".
+3. Work out the total (out of 500), the average and the percentage.
+4. Pass mark is 40 in EVERY subject. Show PASS or FAIL for each
+   subject, and for the whole card.
+5. Grade from the average: 90+ A+, 80+ A, 70+ B, 60+ C, 50+ D,
+   40+ E, below 40 F. Failing any subject makes the grade F.
+6. Verification code: the first 12 characters of the SHA-256 of
+   "name|roll|maths|science|english|social|computer", in upper case,
+   shown as XXXX-XXXX-XXXX.
+7. Everything fits in 52 characters.
+8. Assume the marks are typed correctly: checking input needs if
+   (topic 3). A mark that isn't a number will stop the program.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+Name:  asha
+Roll number: s05-017
+Maths: 95
+Science: 88
+English: 92
+Social: 79
+Computer: 99
+
+====================================================
+                 FDE PUBLIC SCHOOL
+                 REPORT CARD - 2026
+====================================================
+Name : Asha                    Roll no:      S05-017
+Date : 24 October 2026
+----------------------------------------------------
+Subject                  Marks    Out of      Result
+Maths                       95       100        PASS
+Science                     88       100        PASS
+English                     92       100        PASS
+Social                      79       100        PASS
+Computer                    99       100        PASS
+----------------------------------------------------
+Total                      453       500
+Average                  90.60
+Percentage               90.6%
+Grade                       A+
+Result                    PASS
+====================================================
+Verification code: E4C0-DAD9-BFCD
+                     (pass mark 40 in every subject)
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt            this description
+report_card.py         the program
+test_report_card.py    pytest tests: they run the program with typed-in
+                       answers, and check it uses only topics 1-2
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s05-python-2-hash/project-2/report_card.py
+pytest Assignment/s05-python-2-hash/project-2
+
+-----------------------------------------------------
+STRETCH GOALS (still without if, loops or def)
+-----------------------------------------------------
+- Add a sixth subject. Count how many lines you had to change.
+- Show each mark as a percentage of the total with {:.0%}.
+- Add a "Rank" line using a dict that maps roll numbers to ranks.
+- Later (topic 3): rewrite it with a list of subjects and one for loop.
