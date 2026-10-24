@@ -25,6 +25,7 @@ Assignments from the FDE Bootcamp, one folder per class session. Each folder hol
 | `str.format()`, f-strings, `%` and the format spec mini-language | [string_formatting.ipynb](s05-python-2-hash/string_formatting.ipynb) |
 | `if`/`elif`/`else`, `for`, `while` and function basics | [control_flow.ipynb](s05-python-2-hash/control_flow.ipynb) |
 | Class demos for `input()` and nested dictionaries | [input_demo.py](s05-python-2-hash/input_demo.py), [print_demo.py](s05-python-2-hash/print_demo.py) |
+| Projects in topic order: secure sign-up (hash only), a report card (+ string formatting), then a calculator, a login system and a supermarket billing system (+ control flow and functions), with 112 tests | [project-1](s05-python-2-hash/project-1/), [project-2](s05-python-2-hash/project-2/), [project-3](s05-python-2-hash/project-3/), [project-4](s05-python-2-hash/project-4/), [project-5](s05-python-2-hash/project-5/) |
 
 Details: [s05-python-2-hash/README.md](s05-python-2-hash/README.md)
 
@@ -41,6 +42,7 @@ Details: [s05-python-2-hash/README.md](s05-python-2-hash/README.md)
 | `lambda`, `any`, `all`, `map`, `filter`, `enumerate`, `zip`, `sorted` | [06_lambda_and_builtins.ipynb](s06-python-3/06_lambda_and_builtins.ipynb) |
 | Mini project: an expense tracker using every topic above, with 23 tests | [solution.py](s06-python-3/solution.py), [test_solution.py](s06-python-3/test_solution.py) |
 | Class demos: from repeated code to a function with `return` | [functions.py](s06-python-3/functions.py), [functions_2.py](s06-python-3/functions_2.py) |
+| Projects in topic order: an ATM (exceptions), a file organizer with undo (+ `os` and files), a library system (+ OOP), and a student marks analyzer (+ comprehensions, built-ins, `lambda`), with 114 tests | [project-1](s06-python-3/project-1/), [project-2](s06-python-3/project-2/), [project-3](s06-python-3/project-3/), [project-4](s06-python-3/project-4/) |
 
 Each notebook ends with practice exercises left empty for you to answer (29 in total).
 
@@ -58,8 +60,14 @@ Assignment/
     ├── assignment.txt       # the assignment as given in class
     ├── *.ipynb              # one notebook per topic
     ├── solution.py          # code for the assignment
-    └── test_solution.py     # pytest tests for solution.py
+    ├── test_solution.py     # pytest tests for solution.py
+    └── project-N/           # optional: small apps, numbered in the order of the session's topics
+        ├── project.txt      # the brief: level, topics practised, requirements, sample run
+        ├── <app>.py         # the app, e.g. calculator.py
+        └── test_<app>.py    # pytest tests for the app
 ```
+
+Projects follow the order the session's topics are taught in: project 1 uses only the first topic, and each project after it may add the next ones. A project never uses a topic that comes later (OOP isn't allowed in a project that comes before the OOP topic, for example), and its tests check this. Each project's files have their own names (not `solution.py`), so `pytest` on a session folder runs the project tests along with `test_solution.py`.
 
 Files that the notebooks or scripts create at run time go into a `practice_files/` folder inside the session folder. It's git-ignored.
 
