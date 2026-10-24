@@ -1,0 +1,112 @@
+PROJECT 1: SECURE SIGN-UP AND LOG-IN
+Session 05 - Python 2 (hash, string formatting, control flow, function basics)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 05 topics, in the order they are taught:
+   1. hash                                      <- this project
+   2. string formatting                            (project 2)
+   3. if-elif-else, for, while, function basics    (projects 3-5)
+
+Topics you may use:   topic 1 (hash), plus the basics from sessions
+                      04-05: variables, data types, operators, strings,
+                      lists, tuples, sets, dicts, type casting, input(),
+                      print()
+Not used yet:         f-strings and str.format() (topic 2),
+                      if / else, loops and def (topic 3),
+                      try / except, classes, comprehensions (session 06)
+
+So the program runs straight from top to bottom. Where you would
+normally write an if, a dict lookup does the job.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build the sign-up and log-in step of a website, the safe way: the
+password is never stored. Then look inside to see why it's safe, and
+how the dict that holds the users finds them so fast.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+salted hashing     -> os.urandom(16) for the salt, and
+                      hashlib.pbkdf2_hmac("sha256", ...) for the hash
+                      (understanding_hash.ipynb, the hashlib section)
+hash table (dict)  -> users = {username: {"salt": ..., "hash": ...}}
+                      users.get(name, default) for a safe lookup
+dict instead of if -> {True: "Login successful", False: "Invalid ..."}
+                      then messages[login_ok]
+hash()             -> hash(username) % 8 picks a bucket; string
+                      hashes change every run (hash randomization)
+`in` on dict / set -> one lookup, however many items there are
+bytes and hex      -> .encode(), .hex(), bytes.fromhex()
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Step 1, sign up: ask for a username and a password. Usernames
+   ignore case and surrounding spaces ("  Bala" = "bala").
+2. Store only a random salt and the salted hash, as hex text, in a
+   dict keyed by username. Show the saved record and its fields.
+3. Step 2, log in: ask again, hash the attempt with the SAME salt, and
+   compare. A wrong password and an unknown username must give the
+   same message, so nobody can find out which usernames exist.
+4. Step 3: show that the same password with a new salt gives a
+   different hash, and print the unsalted SHA-256 for comparison.
+5. Step 4: show the username's hash(), its bucket in an 8-bucket
+   table, and `in` lookups on the users dict and a set of reserved
+   names.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+==================================================
+STEP 1: SIGN UP
+==================================================
+Choose a username: Bala
+Choose a password: Secret#123
+
+Saved record for bala:
+{'salt': '6f1c...', 'hash': '9b2e...'}
+Fields stored: ['salt', 'hash']
+Password length: 10 characters
+Hash length:     64 hex characters (the same for every password)
+
+==================================================
+STEP 2: LOG IN
+==================================================
+Username: bala
+Password: Secret#123
+Login successful. Welcome, bala!
+
+==================================================
+STEP 3: WHY THE SALT MATTERS
+==================================================
+Same password, same salt -> same hash? True
+Same password, new salt  -> same hash? False
+...
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt            this description
+secure_signup.py       the program
+test_secure_signup.py  pytest tests: they run the program with typed-in
+                       answers, and check it uses only topic 1
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s05-python-2-hash/project-1/secure_signup.py
+pytest Assignment/s05-python-2-hash/project-1
+
+-----------------------------------------------------
+STRETCH GOALS (still without if, loops or def)
+-----------------------------------------------------
+- Sign up a second user with the SAME password and print both hashes.
+- Add a "message fingerprint" step: hash a sentence, then hash it with
+  one letter changed, and compare (the avalanche effect).
+- Print how many users are stored with len(users).
+- Later (topic 3): project 4 is this program with a menu, password
+  rules and account locking.
