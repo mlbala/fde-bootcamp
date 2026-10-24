@@ -1,0 +1,120 @@
+PROJECT 5: SUPERMARKET BILLING SYSTEM
+Session 05 - Python 2 (hash, string formatting, control flow, function basics)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 05 topics, in the order they are taught:
+   1. hash                                         (project 1)
+   2. string formatting                            (project 2)
+   3. if-elif-else, for, while, function basics    (project 3)
+   all three together                              (project 4)
+   all three together                           <- this project
+
+Topics you may use:   topics 1-3, plus the basics from sessions 04-05
+Not used yet:         try / except, files, classes, comprehensions,
+                      lambda, and the built-ins any(), all(), map(),
+                      filter(), enumerate(), zip(), sorted()
+                      (all session 06)
+
+Project 2 printed one fixed report card from top to bottom. With
+topic 3, this receipt can have any number of lines, a discount that
+depends on the bill, and a menu for the cashier.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Build the billing counter of a supermarket. The cashier adds products
+to a cart by product code, the program works out the discount and tax,
+and prints a neat receipt. At closing time it shows the day's sales.
+
+-----------------------------------------------------
+MODULE TOPICS THIS PROJECT PRACTISES
+-----------------------------------------------------
+string formatting  -> the main topic. The receipt uses:
+                      - alignment and width:      {:<24} {:>10} {:^48}
+                      - thousands and decimals:   {:,.2f}  ->  1,090.00
+                      - percentages:              {:.0%}   ->  5%
+                      - zero padding:             {:04d}   ->  0007
+                      - cutting long text:        {:.24}
+                      - a dynamic width:          {:^{width}}
+                      - dates:                    {:%d-%m-%Y %H:%M}
+                      - a template filled from a dict with **
+dict (hash table)  -> the product catalog (code -> product) and the cart
+                      (code -> quantity): CATALOG["A1"] is one lookup
+if / elif / else   -> the discount slabs, where the ORDER of the
+                      conditions matters
+while loop         -> the main menu
+for loop           -> adding up the bill, printing each receipt line
+functions          -> each returns a value; calculate_bill() returns a
+                      dict with several values in it
+copying            -> cart.copy() before cart.clear(), so a finished
+                      bill isn't wiped out by the next customer
+type casting       -> quantity text -> int, checked with isdecimal()
+                      first (no try / except until session 06)
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Menu: 1. Show products  2. Add item  3. Remove item  4. View bill
+         5. Checkout  6. Close the counter
+2. Product codes are case-insensitive ("a1" = "A1").
+3. Quantity must be a whole number from 1 to 99. Adding the same
+   product again adds to its quantity (still at most 99).
+4. Discount slabs on the subtotal:
+      5,000 or more -> 10%
+      2,000 or more ->  5%
+      1,000 or more ->  2%
+      below 1,000   ->  no discount
+5. Tax is 5%, worked out AFTER the discount.
+6. Every amount is rounded to 2 decimal places, so the lines on the
+   receipt add up exactly to the total.
+7. Checkout asks for the customer's name ("Guest" if left empty),
+   prints the receipt with a bill number, and empties the cart for the
+   next customer.
+8. Closing the counter shows how many bills were made and the day's
+   total sales.
+
+-----------------------------------------------------
+SAMPLE RECEIPT
+-----------------------------------------------------
+================================================
+                FDE SUPERMARKET
+         24-10-2026 18:30   Bill #0001
+================================================
+Customer: Bala
+------------------------------------------------
+Item                      Qty    Price    Amount
+Basmati rice 5kg            2   545.00  1,090.00
+Milk 1L                     3    66.00    198.00
+Ball pen (pack of 10)       1   100.00    100.00
+------------------------------------------------
+Subtotal                                1,388.00
+Discount (2%)                             -27.76
+Tax (5%)                                   68.01
+================================================
+TOTAL                                Rs 1,428.25
+================================================
+       6 items | You saved Rs 27.76 | Thank you!
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt          this description
+billing.py           the app
+test_billing.py      pytest tests for the functions in billing.py, and a
+                     check that it uses only session 05 topics
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s05-python-2-hash/project-5/billing.py
+pytest Assignment/s05-python-2-hash/project-5
+
+-----------------------------------------------------
+STRETCH GOALS (try these yourself)
+-----------------------------------------------------
+- Add a "change quantity" option.
+- Add coupon codes kept in a dict, e.g. {"WELCOME50": 50}.
+- Give each product a category and print a subtotal per category.
+- After session 06: save every receipt to its own text file.
