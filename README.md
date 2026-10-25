@@ -18,71 +18,81 @@ This repository documents my progress from software engineering foundations to b
 
 ## Repository Structure
 
-The intended layout is shown below. Module and project folders are added as the course progresses.
+The current layout is shown below. Folders fill in as the course progresses.
 
 ```text
 fde-bootcamp/
 ├── README.md
+├── LICENSE
 ├── .gitignore
-├── .env.example
+├── .env.example                     # Variable names only; copy to .env, which is excluded from Git
 ├── requirements.txt
-├── pyproject.toml                   # Option 2: uv project metadata
-├── uv.lock                          # Option 2: dependency lockfile
 ├── .venv/                           # Local environment; excluded from Git
-├── modules/
+├── Assignment/                      # Class assignments, one folder per session
+│   ├── README.md                    # Index of sessions and projects, and how to run them
+│   ├── s04-python-1/
+│   ├── s05-python-2-hash/
+│   └── s06-python-3/
+│       ├── README.md                # Problem statement, approach, how to run, learnings
+│       ├── *.ipynb                  # One notebook per topic
+│       ├── solution.py              # Code for the assignment
+│       ├── test_solution.py         # pytest tests for solution.py
+│       └── project-N/               # Small apps in topic order: project.txt, <app>.py, test_<app>.py
+├── modules/                         # One folder per course module: README.md, notebooks/, src/, tests/
 │   ├── 01-python-linux/
 │   ├── 02-api-development/
-│   ├── 03-aws-networking/
+│   ├── 03-cloud-networking/
 │   ├── 04-docker-cicd/
 │   ├── 05-llm-prompting/
 │   ├── 06-vector-search-rag/
-│   ├── 07-knowledge-graphs/
-│   ├── 08-multimodal-vision/
-│   ├── 09-agents-langgraph/
-│   ├── 10-agent-orchestration-mcp/
-│   ├── 11-enterprise-integrations/
+│   ├── 07-graph-architecture/
+│   ├── 08-multimodal-rag/
+│   ├── 09-langgraph/
+│   ├── 10-agent-orchestration/
+│   ├── 11-legacy-integrations/
 │   ├── 12-identity-access/
 │   ├── 13-ai-security-guardrails/
-│   └── 14-observability-evaluation/
-├── projects/
-│   ├── omniguard/
-│   └── auditmesh/
-├── notes/
-├── scripts/
-└── .github/
-    └── workflows/
+│   └── 14-observability-gateway/
+├── projects/                        # Capstone projects: README.md, docs/, src/, tests/
+│   ├── 01-omniguard/
+│   └── 02-auditmesh/
+├── shared/                          # Reusable code, importable as the shared package
+│   └── utils/
+└── notes/                           # Revision notes and lessons learned
 ```
 
-- **`modules/`** — Topic-specific exercises, examples, notebooks, and module documentation.
-- **`projects/`** — Capstone implementations with their own setup and usage instructions.
+- **`Assignment/`** — Class assignments, one folder per session (`sNN-<topic>`). Each holds the assignment as given in class, notebooks, a solution with pytest tests, a README, and small projects that follow the order the topics are taught. [Assignment/README.md](Assignment/README.md) has the index of sessions and projects, and how to run them.
+- **`modules/`** — The 14 course modules, each with a README, `notebooks/`, `src/` and `tests/`. The class notebooks for module 01 are in `modules/01-python-linux/notebooks/`.
+- **`projects/`** — The OmniGuard and AuditMesh capstone projects, each with `docs/`, `src/`, `tests/` and its own setup and usage instructions.
+- **`shared/`** — Reusable utilities in `shared/utils/`, for use across modules and projects.
 - **`notes/`** — Revision notes, engineering decisions, and lessons learned.
-- **`scripts/`** — Reusable development and automation scripts.
-- **`.github/workflows/`** — Build, test, and deployment workflows introduced during the course.
+
+Added later, when the course needs them: `pyproject.toml` and `uv.lock` (only with setup Option 2 below), `scripts/` for development and automation scripts, and `.github/workflows/` for build, test, and deployment workflows.
 
 ## Course Modules
 
 The course covers the following modules.
 
-- **01 — Python & Linux:** Core Python, OOP, exceptions, file I/O, memory management, async programming, and Linux fundamentals.
-- **02 — API Development:** FastAPI, REST, Pydantic, GraphQL, API versioning, and pytest.
-- **03 — AWS & Networking:** Compute, storage, databases, serverless functions, VPCs, IAM, and cloud budgets.
-- **04 — Docker & CI/CD:** Docker Compose, App Runner, ECS Fargate, and GitHub Actions.
-- **05 — LLM Fundamentals:** Prompting, context management, structured outputs, validation, and tool calling.
-- **06 — Vector Search & RAG:** Chunking, embeddings, Pinecone, Qdrant, BM25, hybrid search, RRF, and reranking.
-- **07 — Knowledge Graphs:** Graph modeling, Neo4j, Cypher, enterprise relationships, and graph-based retrieval.
-- **08 — Multimodal & Vision:** Document parsing, OCR, ColPali, vision-language models, and retrieval over PDFs, tables, and charts.
-- **09 — Agents & LangGraph:** Agent design patterns, state management, supervisors, parallel execution, and subgraphs.
-- **10 — Agent Orchestration & MCP:** Memory, checkpoints, human approval, error recovery, Bedrock AgentCore, and MCP.
-- **11 — Enterprise Integrations:** Slack, Teams, Jira, webhooks, SOAP, XML, Oracle, MS SQL Server, and constrained Text-to-SQL.
-- **12 — Identity & Access:** OAuth 2.0, SAML, OIDC, JWTs, SSO, directory groups, and data-level RBAC.
-- **13 — AI Security & Guardrails:** Prompt injection defenses, OWASP LLM risks, Presidio, NeMo, and Bedrock guardrails.
-- **14 — Observability & Evaluation:** Reliability patterns, LLM gateways, DeepEval, RAGAS, LangSmith, Langfuse, latency, and cost tracking.
+- **01 — Python & Linux Foundations:** Core data structures, memory management, OOP, exception handling, and file I/O; async programming with the event loop, coroutines, and ThreadPoolExecutor; Linux file system, permissions, processes, shell scripting, and environment variables.
+- **02 — Modern API Development:** FastAPI REST APIs with Pydantic validation, dependency injection, and CORS; GraphQL with Strawberry or Graphene, and API versioning; pytest fixtures, mocking, and coverage, and VS Code debugging.
+- **03 — Cloud Fundamentals & Networking:** AWS compute, object storage, managed databases, and serverless functions; VPCs, subnets, NAT, and security groups; IAM least privilege, cross-account roles, and cloud budgets.
+- **04 — Containerization & CI/CD:** Docker and Docker Compose; serverless containers on AWS App Runner and ECS Fargate; CI/CD pipelines with GitHub Actions.
+- **05 — LLM Fundamentals & Prompting:** Prompt engineering and context management; structured outputs with Pydantic validation; tool and function calling.
+- **06 — Vector Search & Core RAG:** Chunking, embedding models, and BM25; Pinecone and Qdrant vector databases; vanilla RAG and hybrid search with RRF; retrieval evaluation and reranking.
+- **07 — Enterprise Graph Architecture:** Knowledge graph concepts and data modeling; Neo4j, AuraDB, and Cypher; Amazon Neptune and graph-based retrieval for AI chatbots.
+- **08 — Multimodal RAG & Vision AI:** Document parsing with OCR and ColPali; vision-language models and visual embeddings; scanned PDFs, tables, and charts.
+- **09 — Agentic Frameworks & LangGraph:** Agent design patterns such as ReAct, plan-and-execute, supervisor, and router; multi-agent systems in LangGraph; parallel execution and subgraphs.
+- **10 — Advanced Agent Orchestration:** Memory and human-in-the-loop workflows; error handling and AWS Bedrock AgentCore; Model Context Protocol (MCP).
+- **11 — Legacy Systems & Integrations:** Slack, Teams, and Jira; SOAP APIs and XML parsing; Oracle and MS SQL Server integration with constrained Text-to-SQL.
+- **12 — Identity & Access Management:** Enterprise SSO with OAuth 2.0, SAML, OIDC, and JWTs; Active Directory groups and data-level RBAC.
+- **13 — Production AI Security & Guardrails:** OWASP LLM Top 10 and prompt injection defenses; PII detection and masking with Presidio; NeMo and Bedrock guardrails.
+- **14 — AI Observability & Gateway Management:** Production reliability and LLM gateways such as LiteLLM and Portkey; evaluation with DeepEval and RAGAS; observability with LangSmith and Langfuse.
 
 ## Capstone Projects
 
 ### OmniGuard — Secure AI Integration
 
-**Status:** Planned · **Directory:** `projects/omniguard/`
+**Status:** Planned · **Directory:** `projects/01-omniguard/`
 
 An enterprise AI connector combining hybrid RAG and secure Text-to-SQL with OAuth 2.0, RBAC, PII masking, and programmable guardrails. The planned implementation includes a Dockerized FastAPI application and cloud deployment.
 
@@ -90,7 +100,7 @@ Consulting deliverables include discovery and scoping notes, data classification
 
 ### AuditMesh — Multi-Agent Compliance System
 
-**Status:** Planned · **Directory:** `projects/auditmesh/`
+**Status:** Planned · **Directory:** `projects/02-auditmesh/`
 
 A LangGraph supervisor system for financial compliance workflows, incorporating human approval, a custom MCP server for Jira ticketing, and observability for tool execution and token costs. A Streamlit or Gradio interface will support approval workflows.
 
@@ -179,7 +189,7 @@ With the environment active, run a script from the repository root. Replace the 
 python modules/<module-folder>/<script-name>.py
 ```
 
-Each module and project README documents its entry points, required configuration, and external services.
+Each module and project README documents its entry points, required configuration, and external services. To run the assignments, their projects, and their tests, see [Assignment/README.md](Assignment/README.md).
 
 ### Configuration
 
@@ -223,11 +233,3 @@ cp .env.example .env
 ```
 
 Add your credentials to `.env`; never commit that file.
-
-## Layout
-
-- `Assignment/` holds course assignments.
-- `modules/` contains the 14 numbered course modules, each with source code, notebooks, tests, and a module README.
-- `projects/` contains the OmniGuard and AuditMesh capstone projects, each with documentation, source code, tests, and a project README.
-- `shared/` contains reusable utilities in `shared/utils/`.
-- `notes/` is for course notes and revision material.
