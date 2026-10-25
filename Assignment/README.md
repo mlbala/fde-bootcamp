@@ -10,6 +10,25 @@ Assignments from the FDE Bootcamp, one folder per class session. Each folder hol
 | 05 | 2026-10-17 | 01 - Python & Linux | Python 2: hashing and hash tables, string formatting, control flow, function basics | Completed | [s05-python-2-hash](s05-python-2-hash/) |
 | 06 | 2026-10-24 | 01 - Python & Linux | Python 3: exceptions, `os` and paths, file handling, OOP, comprehensions, built-ins, `lambda` | Completed | [s06-python-3](s06-python-3/) |
 
+## Projects
+
+Small programs that practise each session's topics. Within a session, projects follow the order the topics are taught, so the **Topics** column lists the session topics each project may use: each project adds the next topic and never uses a later one. Each one also uses the basics from earlier sessions.
+
+| Session | Project | Program | Topics | Tests | Status | Folder |
+|---------|---------|---------|--------|-------|--------|--------|
+| 04 | 1 | About me: a profile made of variables ([about_me.py](s04-python-1/project-1/about_me.py)) | Variables, data types, operators | 38 | Completed | [s04-python-1/project-1](s04-python-1/project-1/) |
+| 05 | 1 | Secure sign-up and log-in ([secure_signup.py](s05-python-2-hash/project-1/secure_signup.py)) | Hash | 5 | Completed | [s05-python-2-hash/project-1](s05-python-2-hash/project-1/) |
+| 05 | 2 | Report card generator ([report_card.py](s05-python-2-hash/project-2/report_card.py)) | Hash, string formatting | 5 | Completed | [s05-python-2-hash/project-2](s05-python-2-hash/project-2/) |
+| 05 | 3 | Calculator ([calculator.py](s05-python-2-hash/project-3/calculator.py)) | Hash, string formatting, control flow and functions | 50 | Completed | [s05-python-2-hash/project-3](s05-python-2-hash/project-3/) |
+| 05 | 4 | Login system with hashed passwords ([login_system.py](s05-python-2-hash/project-4/login_system.py)) | Hash, string formatting, control flow and functions | 23 | Completed | [s05-python-2-hash/project-4](s05-python-2-hash/project-4/) |
+| 05 | 5 | Supermarket billing ([billing.py](s05-python-2-hash/project-5/billing.py)) | Hash, string formatting, control flow and functions | 29 | Completed | [s05-python-2-hash/project-5](s05-python-2-hash/project-5/) |
+| 06 | 1 | ATM machine ([atm.py](s06-python-3/project-1/atm.py)) | Exceptions | 28 | Completed | [s06-python-3/project-1](s06-python-3/project-1/) |
+| 06 | 2 | File organizer with undo ([file_organizer.py](s06-python-3/project-2/file_organizer.py)) | Exceptions, `os`, file handling | 25 | Completed | [s06-python-3/project-2](s06-python-3/project-2/) |
+| 06 | 3 | Library management system ([library.py](s06-python-3/project-3/library.py)) | Exceptions, `os`, file handling, OOP | 27 | Completed | [s06-python-3/project-3](s06-python-3/project-3/) |
+| 06 | 4 | Student marks analyzer ([marks_analyzer.py](s06-python-3/project-4/marks_analyzer.py)) | All 7: exceptions, `os`, file handling, OOP, comprehensions, built-ins, `lambda` | 34 | Completed | [s06-python-3/project-4](s06-python-3/project-4/) |
+
+Each project folder has a `project.txt` with the brief (level, requirements, a sample run and stretch goals), the program, and its tests. "Completed" means the program is written and all its tests pass.
+
 ## What each session contains
 
 ### Session 04: Python 1
