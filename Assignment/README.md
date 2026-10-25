@@ -15,6 +15,7 @@ Assignments from the FDE Bootcamp, one folder per class session. Each folder hol
 ### Session 04: Python 1
 - **Assignment:** operator precedence (BODMAS), the order in which Python evaluates the operators in an expression.
 - **Answer:** section 3.7 of the class notebook [01_variables_datatype.ipynb](../modules/01-python-linux/notebooks/01_variables_datatype.ipynb), which also covers variables, data types, all operator types, lists, tuples and sets.
+- **Project** ([project-1](s04-python-1/project-1/)): "about me", a profile made of variables. It shows each value's data type, does sums with the age, height and weight, joins text with `+`, and answers yes/no questions with comparison and logical operators. It has 38 tests.
 - Details: [s04-python-1/README.md](s04-python-1/README.md)
 
 ### Session 05: Python 2
@@ -67,7 +68,7 @@ Assignment/
         └── test_<app>.py    # pytest tests for the app
 ```
 
-Projects follow the order the session's topics are taught in: project 1 uses only the first topic, and each project after it may add the next ones. A project never uses a topic that comes later (OOP isn't allowed in a project that comes before the OOP topic, for example), and its tests check this. Each project's files have their own names (not `solution.py`), so `pytest` on a session folder runs the project tests along with `test_solution.py`.
+Projects follow the order the session's topics are taught in: project 1 uses only the first topic (or the first few, when they can't be used apart, like session 04's variables, data types and operators), and each project after it may add the next ones. A project never uses a topic that comes later (OOP isn't allowed in a project that comes before the OOP topic, for example), and its tests check this. Each project's files have their own names (not `solution.py`), so `pytest` on a session folder runs the project tests along with `test_solution.py`.
 
 Files that the notebooks or scripts create at run time go into a `practice_files/` folder inside the session folder. It's git-ignored.
 
