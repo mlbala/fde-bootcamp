@@ -226,3 +226,8 @@ __marimo__/
 .ipynb_checkpoints/
 **/.DS_Store
 data/raw/
+
+# Practice files that the assignment notebooks and projects create at run time
+# (sample CSVs, JSON saves, reports, sorted sample folders). No leading slash, so
+# every practice_files/ folder is ignored, in any session or project folder.
+practice_files/

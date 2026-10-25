@@ -34,10 +34,9 @@ Supporting files:
 - [functions.py](functions.py): class demo. The same price × quantity calculation written out twice, to show the problem with repeated code.
 - [functions_2.py](functions_2.py): class demo. The same calculation as `calculate_total(price, quantity)` with `return`, showing parameters vs arguments.
 - [paths_demo.py](paths_demo.py): shows that a relative path depends on where you run `python` from, not where the script is.
-- [.gitignore](.gitignore): keeps the `practice_files/` folder out of git.
 
 ## Projects
-Four terminal apps, beyond the expense tracker, that follow the order the topics are taught in: each project uses only the topics up to its own, plus sessions 04-05. Each folder has a `project.txt` (the brief: its level, the topics it practises and the ones it doesn't use yet, requirements, a sample run and stretch goals), the app, and its tests. Every test file also reads the app's code and fails if it uses a topic from later on. Files the apps create go into a `practice_files/` folder inside the project folder, which the `.gitignore` above also covers.
+Four terminal apps, beyond the expense tracker, that follow the order the topics are taught in: each project uses only the topics up to its own, plus sessions 04-05. Each folder has a `project.txt` (the brief: its level, the topics it practises and the ones it doesn't use yet, requirements, a sample run and stretch goals), the app, and its tests. Every test file also reads the app's code and fails if it uses a topic from later on. Files the apps create, such as `marks.csv`, `library.json` and the sorted sample files, go into a `practice_files/` folder inside the project folder. The repo's root `.gitignore` keeps every `practice_files/` folder out of git.
 
 | Folder | App | Topics used | What it practises | Tests |
 |--------|-----|-------------|-------------------|-------|

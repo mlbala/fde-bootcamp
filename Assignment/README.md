@@ -89,7 +89,7 @@ Assignment/
 
 Projects follow the order the session's topics are taught in: project 1 uses only the first topic (or the first few, when they can't be used apart, like session 04's variables, data types and operators), and each project after it may add the next ones. A project never uses a topic that comes later (OOP isn't allowed in a project that comes before the OOP topic, for example), and its tests check this. Each project's files have their own names (not `solution.py`), so `pytest` on a session folder runs the project tests along with `test_solution.py`.
 
-Files that the notebooks or scripts create at run time go into a `practice_files/` folder inside the session folder. It's git-ignored.
+Files that the notebooks or scripts create at run time go into a `practice_files/` folder inside the session folder, and a project's files go into one inside its project folder. The repo's root `.gitignore` ignores every `practice_files/` folder, so these practice CSV, JSON and text files are never committed. It's safe to delete them: the programs create them again.
 
 ## How to run
 
