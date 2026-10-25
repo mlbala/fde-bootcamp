@@ -1,0 +1,130 @@
+PROJECT 1: ABOUT ME (A PROFILE MADE OF VARIABLES)
+Session 04 - Python 1 (variables, data types, operators, collections)
+
+-----------------------------------------------------
+LEVEL
+-----------------------------------------------------
+Session 04 topics, in the order they are taught:
+   1. variables                                 <- this project
+   2. data types                                <- this project
+   3. operators                                 <- this project (the simple ones)
+   4. collections: lists, tuples, sets             (not used yet)
+
+Variables, data types and operators can't really be used apart, so
+this first project covers topics 1-3 together.
+
+Topics you may use:   variables; str, int, float, bool, None;
+                      type(), id() and print(); arithmetic,
+                      comparison and logical operators, and `is`
+Not used yet:         lists, tuples, sets (topic 4),
+                      input(), type casting, f-strings, if / else,
+                      loops, def (session 05),
+                      files, try / except, classes (session 06)
+
+There's no input() yet, so your details are variables at the top of
+the program: change them and run it again. There's no if either, so
+yes / no answers are printed as True or False.
+
+-----------------------------------------------------
+GOAL
+-----------------------------------------------------
+Describe yourself with variables: your name, age, height, weight,
+whether you're a student, and so on. Then let Python show each
+value's type, do some sums with the numbers, join the text, and
+answer yes / no questions about you.
+
+-----------------------------------------------------
+WHAT IT PRACTISES
+-----------------------------------------------------
+variables          -> one name for each detail, in snake_case
+data types         -> str, int, float, bool and None, and type()
+                      to see each one
+arithmetic         -> * - // % ** and /: age in months and days,
+                      birth year, decades, height in cm, BMI
+precedence         -> weight / height ** 2: ** runs before /, and
+                      brackets change the order
+text               -> + joins strings, * repeats them; "21" + "21"
+                      is "2121", but 21 + 21 is 42
+comparison         -> >=, <, ==: adult? teenager? healthy BMI?
+logical            -> and, or, not: can vote = adult AND citizen
+True is 1          -> adding up True / False answers counts them
+None and is        -> nickname is not None: is there a nickname?
+immutable int      -> age = age + 1 makes a new int: id() changes
+
+-----------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------
+1. Store first_name, last_name, age, height_m, weight_kg,
+   is_student, is_citizen and nickname (None) in variables.
+2. Step 1: print every variable with its type().
+3. Step 2: work out the age in months, in days (about) and in
+   decades + years (// and %), the birth year (about), the height
+   in cm, and the BMI (weight / height ** 2). Show what the BMI
+   would be with brackets in the wrong place.
+4. Step 3: join first and last name with a space. Show that + adds
+   numbers but joins text, and that * repeats text.
+5. Step 4: print True / False for: adult (18 or older), teenager
+   (13 to 19), can vote (adult and citizen), student discount
+   (student and under 25), pays full price (not discount), healthy
+   BMI (18.5 or more, and under 25). Count the True answers.
+6. Step 5: check whether there's a nickname with `is not None`.
+   Then have a birthday (age = age + 1) and show that id() changed.
+
+-----------------------------------------------------
+SAMPLE RUN
+-----------------------------------------------------
+==================================================
+STEP 1: VARIABLES AND THEIR DATA TYPES
+==================================================
+first_name = Bala <class 'str'>
+last_name  = Kumar <class 'str'>
+age        = 21 <class 'int'>
+height_m   = 1.75 <class 'float'>
+...
+nickname   = None <class 'NoneType'>
+
+==================================================
+STEP 2: NUMBERS (arithmetic operators)
+==================================================
+Age in months: 252
+Age in days (about): 7665
+Born in (about): 2005
+Age in decades: 2 decades and 1 years
+Height in cm: 175.0
+BMI: 22.367346938775512 <- weight_kg / height_m ** 2: ...
+...
+
+==================================================
+STEP 4: YES OR NO (comparison and logical operators)
+==================================================
+Adult (18 or older)?   True
+Teenager (13 to 19)?   False
+Can vote?              True
+...
+
+-----------------------------------------------------
+FILES
+-----------------------------------------------------
+project.txt        this description
+about_me.py        the program
+test_about_me.py   pytest tests: they change the variables at the top
+                   of the program, run it, and check the answers;
+                   they also check it uses only topics 1-3
+
+-----------------------------------------------------
+HOW TO RUN
+-----------------------------------------------------
+python Assignment/s04-python-1/project-1/about_me.py
+pytest Assignment/s04-python-1/project-1
+
+-----------------------------------------------------
+STRETCH GOALS (still without if, loops or lists)
+-----------------------------------------------------
+- Change the variables to describe yourself, and run it again.
+- Give yourself a nickname and check the answer in step 5 changes.
+- Add a variable for your monthly pocket money. Work out how much
+  that is in a year, how many 250-rupee movie tickets one month's
+  money buys (//), and how much change is left over (%).
+- Try first_name + age and read the error: why does it happen?
+- Later (session 05): read the values with input(), and print
+  "Yes" / "No" with if / else instead of True / False.
